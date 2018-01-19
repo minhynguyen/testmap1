@@ -1,0 +1,102 @@
+.map {
+    height: 500px;
+    width: 100%;
+}
+
+.ol-scale-line {
+    background: black;
+    padding: 5px;
+}
+
+h2 {
+    font-size: 1.5em;
+    line-height: 15px;
+}
+
+.scale-cnt {
+    margin: 5px;
+}
+
+.edit-form-ctn {
+}
+
+.edit-form {
+    float: left;
+    margin: 5px;
+    width: 230px;
+    padding: 4px;
+    border: 1px solid black;
+}
+
+.edit-form input[type="button"] {
+    float: right;
+}
+
+.edit-form-elem label {
+    display: block;
+    float: left;
+    width: 85px;
+}
+
+.edit-form-elem input[type="text"] {
+    width: 60px;
+}
+
+.edit-form-elem select {
+    width: 130px;
+}
+
+.edit-form br {
+    clear: left;
+}
+
+.clearall {
+    clear: both;
+}
+
+#layertree li > span {
+    cursor: pointer;
+}
+
+.tooltip {
+    position: relative;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    color: white;
+    padding: 4px 8px;
+    opacity: 0.7;
+    white-space: nowrap;
+}
+.tooltip-measure {
+    opacity: 1;
+    font-weight: bold;
+}
+.tooltip-static {
+    background-color: #ffcc33;
+    color: black;
+    border: 1px solid white;
+}
+.tooltip-measure:before,
+.tooltip-static:before {
+    border-top: 6px solid rgba(0, 0, 0, 0.5);
+    border-right: 6px solid transparent;
+    border-left: 6px solid transparent;
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    margin-left: -7px;
+    left: 50%;
+}
+.tooltip-static:before {
+    border-top-color: #ffcc33;
+}
+
+.map:-moz-full-screen {
+    height: 100%;
+}
+.map:-webkit-full-screen {
+    height: 100%;
+}
+.map:fullscreen {
+    height: 100%;
+}
