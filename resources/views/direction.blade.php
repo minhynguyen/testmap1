@@ -100,9 +100,11 @@
     </div>
 
     <h1>MAP</h1>
-    <div id="map-canvas" style="float:left;width:70%; height:40%"></div>
 
-    <!-- <div id="directions_panel" style="margin:20px; margin-top: 400px"></div> -->
-    <h1 id="directions_panel"></h1>
+    <div id="map-canvas" style="float:left;width:70%; height:40%"></div>
+    <div id="directions_panel" style="margin:20px; margin-top: 300px"></div>
+    <!-- <span id="directions_panel"></span> -->
+    
+    
 </body>
 </html>
