@@ -104,3 +104,9 @@ Route::get('map', function(){
 Route::get('info', function(){
     return View::make('info');
 });
+
+Route::get('distance', function(){
+    $dsLo = location::all();
+    // dd($dsLo);
+    return View::make('distance')->with('dsLo',$dsLo);
+});

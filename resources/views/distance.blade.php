@@ -1,96 +1,56 @@
-<style>
-	#map-canvas{
-		width: 800px;
-		height: 300px;
-		
-	}
-</style>
 
+<?php
+
+	function GetDrivingDistance($lat1, $lat2, $long1, $long2)
+{
+    $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=".$lat1.",".$long1."&destinations=".$lat2.",".$long2."&mode=driving&language=pl-PL";
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    $response = curl_exec($ch);
+    curl_close($ch);
+    $response_a = json_decode($response, true);
+    $dist = $response_a['rows'][0]['elements'][0]['distance']['text'];
+    $time = $response_a['rows'][0]['elements'][0]['duration']['text'];
+
+    return array('distance' => $dist, 'time' => $time);
+}
+    $dist = GetDrivingDistance('{{$dsLo1->lat}}', '{{$dsLo2->lat}}', '{{$dsLo1->lng}}', '{{$dsLo2->lng}}');
+    echo 'Distance: <b>'.$dist['distance'].'</b><br>Travel time duration: <b>'.$dist['time'].'</b>';
+  ?>
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyB6K1CFUQ1RwVJ-nyXxd6W0rfiIBe12Q&libraries=places"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyB6K1CFUQ1RwVJ-nyXxd6W0rfiIBe12Q"
   type="text/javascript"></script>
 
 <div class="container">
-	<div class="col-sm-4">
-		<h1>THÊM VỊ TRÍ</h1>
-		<form name="frmChude" method="POST" action="">		
-		{{ csrf_field() }}	
-			<div class="form-group">
-				<label for="">TÊN ĐỊA ĐIỂM</label>
-				<input type="text" class="form-control input-sm" name="title">
-			</div>
 
-			<div class="form-group">
-				<label for="">ĐIỂM CẦN THÊM:</label>
-				<input type="text" id="searchmap" style="width: 600PX" placeholder="Nhập Tên">
-				<hr>
-				<div id="map-canvas"></div>
-			</div>
-
-			<div class="form-group">
-				<label for="">VĨ ĐỘ (LATITUDE)</label>
-				<input type="text" class="form-control input-sm" name="lat" id="lat">
-			</div>
-
-			<div class="form-group">
-				<label for="">KINH ĐỘ (LONGITUDE)</label>
-				<input type="text" class="form-control input-sm" name="lng" id="lng">
-			</div>
-
-			<button class="btn btn-sm btn-danger">LƯU</button>
-	</div>
-
-</div>
-
-<script>
-
-
-	var map = new google.maps.Map(document.getElementById('map-canvas'),{
-		center:{
-			lat: 10.031450,
-        	lng: 105.768872
-		},
-		zoom:15
-	});
-
-	var marker = new google.maps.Marker({
-		position: {
-			lat: 10.031450,
-        	lng: 105.768872
-		},
-		map: map,
-		draggable: true
-	});
+  	 <div>
+        <strong>Start: </strong>
+        <select id="start" onChange="GetDrivingDistance();">
+        	@foreach ($dsLo as $dsLo1)
+            <option value="{{$dsLo1->id}}">{{$dsLo1->title}}</option>
+            @endforeach
+        </select>
+        <strong>End: </strong>
+        <select id="start" onChange="GetDrivingDistance();">
+        	@foreach ($dsLo as $dsLo2)
+            <option value="{{$dsLo2->id}}">{{$dsLo2->title}}</option>
+            @endforeach
+        </select>
+        
+    </div>
+    </div>
+  
 
 
 
-	var searchBox = new google.maps.places.SearchBox(document.getElementById('searchmap'));
 
-	google.maps.event.addListener(searchBox,'places_changed',function(){
 
-		var places = searchBox.getPlaces();
-		var bounds = new google.maps.LatLngBounds();
-		var i, place;
 
-		for(i=0; place=places[i];i++){
-  			bounds.extend(place.geometry.location);
-  			marker.setPosition(place.geometry.location); //set marker position new...
-  		}
 
-  		map.fitBounds(bounds);
-  		map.setZoom(15);
 
-	});
 
-	google.maps.event.addListener(marker,'position_changed',function(){
 
-		var lat = marker.getPosition().lat();
-		var lng = marker.getPosition().lng();
-
-		$('#lat').val(lat);
-		$('#lng').val(lng);
-
-	});
-
-</script>
