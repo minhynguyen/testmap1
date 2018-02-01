@@ -93,3 +93,14 @@ Route::get('direction',function(){
     return View::make('direction');
 
 });
+
+
+Route::get('map', function(){
+    $dsLo = location::all();
+    // dd($dsLo);
+    return View::make('map')->with('dsLo',$dsLo);
+});
+
+Route::get('info', function(){
+    return View::make('info');
+});
