@@ -88,7 +88,7 @@ Route::get('location/{id}',function($id){
 
 });
 // Route::resource('vendor', 'vendorController');
-Route::resource('location', 'LocationController');
+// Route::resource('location', 'LocationController');
 Route::get('direction',function(){
     return View::make('direction');
 
@@ -110,3 +110,14 @@ Route::get('distance', function(){
     // dd($dsLo);
     return View::make('distance')->with('dsLo',$dsLo);
 });
+Route::get('store', function(){
+    $dsLo = location::all();
+    return View::make('store')->with('dsLo',$dsLo);
+});
+
+
+// Route::resource('store', 'LocationController'){
+//     $dsLo = location::all();
+//     dd($dsLo);
+//     return View::make('store')->with('dsLo',$dsLo);
+// });
